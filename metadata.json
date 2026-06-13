@@ -1,0 +1,8 @@
+{
+  "name": "Bộ Tính Điểm Khối Thi",
+  "description": "Ứng dụng tính điểm 30 các tổ hợp khối thi THPT Quốc gia từ 4 môn thi tùy chọn theo phong cách tối giản.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
