@@ -707,7 +707,7 @@ export default function App() {
                     {/* Calculated values column */}
                     <div className="text-left sm:text-right mt-3 sm:mt-0 flex sm:flex-col justify-between sm:justify-start items-start sm:items-end gap-1 relative z-10 w-full sm:w-auto">
                       <span className="text-3xl font-bold font-mono tracking-tighter text-neutral-900" id={`score-value-${index}`}>
-                        {comb.finalScore.toFixed(1)}
+                        {comb.finalScore.toFixed(2)}
                         <span className="text-base select-none ml-1 inline-flex items-baseline">
                           <span className="font-medium text-neutral-400">/</span>
                           <span className="font-light text-neutral-300">30</span>
@@ -716,7 +716,7 @@ export default function App() {
                       
                       {comb.actualPriority > 0 && (
                         <div className="text-[10px] text-neutral-400 font-mono">
-                          Thi: {comb.unweightedScore.toFixed(1)} + ƯT: {comb.actualPriority.toFixed(1)}
+                          Thi: {comb.unweightedScore.toFixed(2)} + ƯT: {comb.actualPriority.toFixed(2)}
                         </div>
                       )}
                     </div>
