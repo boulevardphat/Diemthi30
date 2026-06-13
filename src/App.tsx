@@ -426,13 +426,24 @@ export default function App() {
   }, [subjects, hasElectiveDuplicates, basePriorityPoints]);
 
   return (
-    <div id="calculator-root" className="w-full min-h-screen bg-white text-[#1A1A1A] font-sans flex flex-col justify-between px-4 md:px-12 py-8 selection:bg-neutral-900 selection:text-white">
+    <div id="calculator-root" className="w-full min-h-screen bg-white text-[#1A1A1A] font-sans flex flex-col justify-between px-4 md:px-12 py-8 selection:bg-neutral-900 selection:text-white select-none">
       
       {/* Header */}
       <header className="pt-2 pb-6 flex flex-col sm:flex-row justify-between items-baseline border-b border-neutral-100 gap-4">
         <div>
-          <h1 className="text-3xl font-light tracking-tighter">
-            DiemThi<span className="font-bold">30</span>
+          <h1 className="text-3xl font-light tracking-tighter flex items-center select-none">
+            <span>DiemThi</span>
+            <svg 
+              className="h-[0.9em] w-[0.45em] mx-0.5 text-neutral-300 self-center translate-y-[0.05em]" 
+              viewBox="0 0 10 20" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="1.8" 
+              strokeLinecap="round"
+            >
+              <line x1="3.8" y1="18" x2="6.2" y2="2" />
+            </svg>
+            <span className="font-bold">30</span>
           </h1>
         </div>
       </header>
@@ -532,7 +543,7 @@ export default function App() {
                           onChange={(e) => handleScoreChange(sub.id, e.target.value)}
                           onBlur={() => handleScoreBlur(sub.id)}
                           placeholder="0.0"
-                          className="w-full text-left bg-transparent text-base font-bold font-mono outline-none"
+                          className="w-full text-left bg-transparent text-base font-bold font-mono outline-none select-text"
                           id={`input-score-${sub.id}`}
                         />
                         <span className="text-[10px] text-neutral-400 font-bold ml-1 uppercase">đ</span>
@@ -551,7 +562,7 @@ export default function App() {
                           onChange={(e) => handleMultiplierChange(sub.id, e.target.value)}
                           onBlur={() => handleMultiplierBlur(sub.id)}
                           placeholder="1.0"
-                          className="w-full text-left bg-transparent text-base font-medium font-mono outline-none"
+                          className="w-full text-left bg-transparent text-base font-medium font-mono outline-none select-text"
                           id={`input-multiplier-${sub.id}`}
                         />
                         <span className="text-[10px] text-neutral-400 font-bold ml-1 uppercase font-mono">h/s</span>
@@ -697,7 +708,10 @@ export default function App() {
                     <div className="text-left sm:text-right mt-3 sm:mt-0 flex sm:flex-col justify-between sm:justify-start items-start sm:items-end gap-1 relative z-10 w-full sm:w-auto">
                       <span className="text-3xl font-bold font-mono tracking-tighter text-neutral-900" id={`score-value-${index}`}>
                         {comb.finalScore.toFixed(1)}
-                        <span className="text-sm font-normal text-neutral-400 ml-1">/30</span>
+                        <span className="text-base select-none ml-1 inline-flex items-baseline">
+                          <span className="font-medium text-neutral-400">/</span>
+                          <span className="font-light text-neutral-300">30</span>
+                        </span>
                       </span>
                       
                       {comb.actualPriority > 0 && (
@@ -720,9 +734,13 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="border-t border-neutral-100 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-400 font-light">
+      <footer className="border-t border-neutral-100 pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-neutral-400 font-light">
         <div id="author-credit-text">
           <span>Công cụ tính điểm tinh giản dành cho Học sinh Việt Nam</span>
+        </div>
+        <div className="text-left md:text-right text-[11px] font-mono leading-normal text-neutral-400">
+          <span className="font-sans font-medium text-neutral-500 block">Phát (Boulevard)</span>
+          <a href="mailto:thuanphat26092008@gmail.com" className="hover:text-neutral-600 transition-colors select-text">thuanphat26092008@gmail.com</a>
         </div>
       </footer>
 
