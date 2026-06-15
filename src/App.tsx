@@ -359,6 +359,7 @@ export interface Aspiration {
   estimatedCutoff?: string; // user's 2026 estimated cutoff score
   blockScores?: { block: string; score: string }[]; // fully decoupled block scores
   originalMajorId?: string; // Support customizing major code of built-in majors
+  scale?: string;
 }
 
 function UniversityLogo({ logoUrl, shortName, name }: { logoUrl: string; shortName: string; name: string }) {
@@ -419,6 +420,7 @@ export default function App() {
   const [manualBlocks, setManualBlocks] = useState<{ block: string; score: string }[]>([{ block: "A00", score: "" }]);
   const [customBlockInput, setCustomBlockInput] = useState<string>("");
   const [editingAspirationId, setEditingAspirationId] = useState<string | null>(null);
+  const [targetScale, setTargetScale] = useState<string>("30");
 
   // Auto-set first major & block on university selection change
   const handleUnivChange = (uId: string) => {
@@ -472,6 +474,7 @@ export default function App() {
     setCustomMajorCode("IT1");
     setManualBlocks([{ block: "A00", score: "" }]);
     setCustomBlockInput("");
+    setTargetScale("30");
     setEditingAspirationId(null);
   };
 
@@ -518,7 +521,8 @@ export default function App() {
       blockCode: manualBlocks[0]?.block || "A00",
       blockCodes: manualBlocks.map(mb => mb.block),
       estimatedCutoff: manualBlocks[0]?.score || undefined,
-      blockScores: manualBlocks
+      blockScores: manualBlocks,
+      scale: targetScale || "30"
     };
     
     if (editingAspirationId) {
@@ -535,6 +539,7 @@ export default function App() {
   const startEditAspiration = (asp: Aspiration) => {
     setEditingAspirationId(asp.id);
     setTargetUnivId(asp.universityId);
+    setTargetScale(asp.scale || "30");
     
     if (asp.universityId === "custom") {
       setCustomUnivName(asp.customUniversityName || "");
@@ -1390,6 +1395,47 @@ export default function App() {
                 </span>
               </div>
 
+              {/* Optional custom scale input */}
+              <div className="space-y-1.5 pb-2">
+                <div className="flex items-center justify-between gap-2">
+                  <label className="block text-[10px] uppercase font-bold tracking-wider text-neutral-400">
+                    Thang điểm tối đa
+                  </label>
+                  <div className="flex gap-1.5 shrink-0">
+                    {["30", "40", "100"].map((sc) => (
+                      <button
+                        key={sc}
+                        type="button"
+                        onClick={() => setTargetScale(sc)}
+                        className={`px-2 py-0.5 rounded text-[10px] font-extrabold font-mono transition-all cursor-pointer ${
+                          targetScale === sc
+                            ? "bg-neutral-900 text-white font-black"
+                            : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200 border border-neutral-200/50"
+                        }`}
+                      >
+                        {sc}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  required
+                  placeholder="Nhập thang điểm (mặc định: 30)"
+                  value={targetScale}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "" || /^[0-9]*\.?[0-9]*$/.test(val)) {
+                      setTargetScale(val);
+                    }
+                  }}
+                  className="w-full bg-white border border-neutral-200 text-xs font-mono font-bold rounded-lg p-2.5 outline-none focus:border-neutral-900"
+                />
+                <span className="block text-[9px] text-neutral-400 italic">
+                  Các ngành tiêu chuẩn dùng thang 30. Ngành nhân hệ số dùng thang 40, đánh giá năng lực dùng thang 100/1200...
+                </span>
+              </div>
+
               {/* Submit Button */}
               <button
                 type="submit"
@@ -1561,6 +1607,7 @@ export default function App() {
                                     <span className="text-xs font-bold font-mono text-neutral-800">
                                       {score ? (parseFloat(score) ? parseFloat(score).toFixed(2) : score) : "--"}
                                     </span>
+                                    <span className="text-[9px] font-light text-neutral-400 select-none ml-0.5">/{asp.scale || "30"}</span>
                                   </div>
                                 </div>
 
@@ -1579,6 +1626,7 @@ export default function App() {
                                     <span className="text-xl font-bold font-mono tracking-tighter text-neutral-900 leading-none">
                                       {score ? (parseFloat(score) ? parseFloat(score).toFixed(2) : score) : "--"}
                                     </span>
+                                    <span className="text-[10px] select-none ml-1 font-light text-neutral-400">/{asp.scale || "30"}</span>
                                   </div>
                                 </div>
                               </div>
