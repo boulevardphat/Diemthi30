@@ -1561,7 +1561,6 @@ export default function App() {
                                     <span className="text-xs font-bold font-mono text-neutral-800">
                                       {score ? (parseFloat(score) ? parseFloat(score).toFixed(2) : score) : "--"}
                                     </span>
-                                    <span className="text-[9px] font-light text-neutral-400 select-none">/30</span>
                                   </div>
                                 </div>
 
@@ -1580,7 +1579,6 @@ export default function App() {
                                     <span className="text-xl font-bold font-mono tracking-tighter text-neutral-900 leading-none">
                                       {score ? (parseFloat(score) ? parseFloat(score).toFixed(2) : score) : "--"}
                                     </span>
-                                    <span className="text-[10px] select-none ml-0.5 font-light text-neutral-300">/30</span>
                                   </div>
                                 </div>
                               </div>
